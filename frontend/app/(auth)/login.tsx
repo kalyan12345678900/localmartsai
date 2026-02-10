@@ -22,8 +22,20 @@ export default function LoginScreen() {
     }
     setLoading(true);
     try {
-      await login(email, password);
-      // AuthGate in root layout handles navigation based on role
+      const userData = await login(email, password);
+      const role = userData?.active_role || 'customer';
+      // Direct navigation based on role - use window.location on web for reliable routing
+      let target = '/(customer)/home';
+      switch (role) {
+        case 'merchant': target = '/merchant'; break;
+        case 'agent': target = '/agent'; break;
+        case 'admin': target = '/admin'; break;
+      }
+      if (Platform.OS === 'web' && typeof window !== 'undefined') {
+        window.location.href = target;
+      } else {
+        router.replace(target as any);
+      }
     } catch (e: any) {
       Alert.alert('Login Failed', e.message || 'Invalid credentials');
     } finally {
