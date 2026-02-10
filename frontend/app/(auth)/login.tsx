@@ -27,10 +27,10 @@ export default function LoginScreen() {
       // Use setTimeout to ensure navigation happens AFTER React re-render from state change
       setTimeout(() => {
         switch (role) {
-          case 'merchant': router.replace('/merchant'); break;
-          case 'agent': router.replace('/agent'); break;
-          case 'admin': router.replace('/admin'); break;
-          default: router.replace('/(customer)/home'); break;
+          case 'merchant': router.replace('/merchant-dashboard'); break;
+          case 'agent': router.replace('/agent-dashboard'); break;
+          case 'admin': router.replace('/admin-dashboard'); break;
+          default: router.replace('/home'); break;
         }
       }, 200);
     } catch (e: any) {
