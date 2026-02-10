@@ -40,17 +40,11 @@ export default function RegisterScreen() {
         shop_name: shopName, shop_address: shopAddress,
         working_hours: workingHours, join_whatsapp: joinWhatsapp,
       });
-      const activeRole = userData?.active_role || 'customer';
-      let target = '/(customer)/home';
-      switch (activeRole) {
-        case 'merchant': target = '/merchant'; break;
-        case 'agent': target = '/agent'; break;
-        case 'admin': target = '/admin'; break;
-      }
+      // All roles go to /home which renders role-appropriate dashboard
       if (Platform.OS === 'web' && typeof window !== 'undefined') {
-        window.location.href = target;
+        window.location.href = '/home';
       } else {
-        router.replace(target as any);
+        router.replace('/home');
       }
     } catch (e: any) {
       Alert.alert('Registration Failed', e.message || 'Please try again');
