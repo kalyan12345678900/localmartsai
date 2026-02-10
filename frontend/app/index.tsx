@@ -1,30 +1,41 @@
-import { Text, View, StyleSheet, Image } from "react-native";
-
-const EXPO_PUBLIC_BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
+import { useEffect } from 'react';
+import { View, ActivityIndicator, StyleSheet, Text } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useAuth } from '../context/AuthContext';
+import { Colors } from '../constants/Colors';
 
 export default function Index() {
-  console.log(EXPO_PUBLIC_BACKEND_URL, "EXPO_PUBLIC_BACKEND_URL");
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (loading) return;
+    const timer = setTimeout(() => {
+      if (!user) {
+        router.replace('/(auth)/login');
+      } else {
+        switch (user.active_role) {
+          case 'merchant': router.replace('/(merchant)'); break;
+          case 'agent': router.replace('/(agent)'); break;
+          case 'admin': router.replace('/(admin)'); break;
+          default: router.replace('/(customer)/home'); break;
+        }
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [user, loading]);
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../assets/images/app-image.png")}
-        style={styles.image}
-      />
+      <Text style={styles.logo}>QuickDrop</Text>
+      <Text style={styles.tagline}>Hyperlocal Delivery</Text>
+      <ActivityIndicator size="large" color={Colors.light.primary} style={{ marginTop: 32 }} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0c0c0c",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
-  },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FFF' },
+  logo: { fontSize: 42, fontWeight: '800', color: Colors.light.primary, letterSpacing: -1 },
+  tagline: { fontSize: 16, color: Colors.light.textSecondary, marginTop: 8 },
 });
