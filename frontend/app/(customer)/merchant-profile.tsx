@@ -17,10 +17,10 @@ export default function MerchantProfile() {
     try {
       await switchRole(role);
       switch (role) {
-        case 'customer': router.replace('/(customer)/home'); break;
-        case 'agent': router.replace('/agent'); break;
-        case 'admin': router.replace('/admin'); break;
-        default: router.replace('/merchant'); break;
+        case 'customer': router.replace('/home'); break;
+        case 'agent': router.replace('/agent-dashboard'); break;
+        case 'admin': router.replace('/admin-dashboard'); break;
+        default: router.replace('/merchant-dashboard'); break;
       }
     } catch (e: any) { Alert.alert('Error', e.message); }
     finally { setSwitching(false); }

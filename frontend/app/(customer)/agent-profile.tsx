@@ -17,10 +17,10 @@ export default function AgentProfile() {
     try {
       await switchRole(role);
       switch (role) {
-        case 'customer': router.replace('/(customer)/home'); break;
-        case 'merchant': router.replace('/merchant'); break;
-        case 'admin': router.replace('/admin'); break;
-        default: router.replace('/agent'); break;
+        case 'customer': router.replace('/home'); break;
+        case 'merchant': router.replace('/merchant-dashboard'); break;
+        case 'admin': router.replace('/admin-dashboard'); break;
+        default: router.replace('/agent-dashboard'); break;
       }
     } catch (e: any) { Alert.alert('Error', e.message); }
     finally { setSwitching(false); }

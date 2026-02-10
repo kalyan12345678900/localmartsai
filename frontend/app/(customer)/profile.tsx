@@ -16,10 +16,10 @@ export default function ProfileScreen() {
     try {
       await switchRole(role);
       switch (role) {
-        case 'merchant': router.replace('/merchant'); break;
-        case 'agent': router.replace('/agent'); break;
-        case 'admin': router.replace('/admin'); break;
-        default: router.replace('/(customer)/home'); break;
+        case 'merchant': router.replace('/merchant-dashboard'); break;
+        case 'agent': router.replace('/agent-dashboard'); break;
+        case 'admin': router.replace('/admin-dashboard'); break;
+        default: router.replace('/home'); break;
       }
     } catch (e: any) {
       Alert.alert('Error', e.message);

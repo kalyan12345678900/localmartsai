@@ -13,10 +13,10 @@ export default function AdminProfile() {
     try {
       await switchRole(role);
       switch (role) {
-        case 'customer': router.replace('/(customer)/home'); break;
-        case 'merchant': router.replace('/merchant'); break;
-        case 'agent': router.replace('/agent'); break;
-        default: router.replace('/admin'); break;
+        case 'customer': router.replace('/home'); break;
+        case 'merchant': router.replace('/merchant-dashboard'); break;
+        case 'agent': router.replace('/agent-dashboard'); break;
+        default: router.replace('/admin-dashboard'); break;
       }
     } catch (e: any) { Alert.alert('Error', e.message); }
   };
