@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Stack, useRouter, useSegments } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
@@ -8,27 +8,27 @@ import { Colors } from '../constants/Colors';
 function AuthGate() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const hasHandledInitialAuth = useRef(false);
+  const prevUser = useRef<any>(undefined); // undefined = never set
 
   useEffect(() => {
     if (loading) return;
 
-    if (hasHandledInitialAuth.current) {
-      // Only handle logout after initial redirect
-      if (!user) {
-        router.replace('/(auth)/login');
-      }
-      return;
-    }
+    const wasLoggedIn = prevUser.current !== undefined && prevUser.current !== null;
+    const isLoggedIn = user !== null;
+    const justLoggedIn = !wasLoggedIn && isLoggedIn;
+    const justLoggedOut = wasLoggedIn && !isLoggedIn;
+    const isFirstLoad = prevUser.current === undefined;
 
-    hasHandledInitialAuth.current = true;
+    prevUser.current = user;
 
-    if (!user) {
+    if (!isLoggedIn) {
+      // Not authenticated - redirect to login
       router.replace('/(auth)/login');
-    } else {
-      // All roles go to /home which renders appropriate dashboard
+    } else if (isFirstLoad || justLoggedIn) {
+      // Just logged in or first load with stored token - go to home
       router.replace('/home');
     }
+    // If already logged in and navigating between tabs, do nothing
   }, [user, loading]);
 
   if (loading) {
