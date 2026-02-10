@@ -15,9 +15,9 @@ export default function Index() {
         router.replace('/(auth)/login');
       } else {
         switch (user.active_role) {
-          case 'merchant': router.replace('/(merchant)'); break;
-          case 'agent': router.replace('/(agent)'); break;
-          case 'admin': router.replace('/(admin)'); break;
+          case 'merchant': router.replace('/merchant'); break;
+          case 'agent': router.replace('/agent'); break;
+          case 'admin': router.replace('/admin'); break;
           default: router.replace('/(customer)/home'); break;
         }
       }
