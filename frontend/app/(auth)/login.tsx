@@ -24,13 +24,15 @@ export default function LoginScreen() {
     try {
       const userData = await login(email, password);
       const role = userData?.active_role || 'customer';
-      let target = '/(customer)/home';
-      switch (role) {
-        case 'merchant': target = '/merchant'; break;
-        case 'agent': target = '/agent'; break;
-        case 'admin': target = '/admin'; break;
-      }
-      router.replace(target as any);
+      // Use setTimeout to ensure navigation happens AFTER React re-render from state change
+      setTimeout(() => {
+        switch (role) {
+          case 'merchant': router.replace('/merchant'); break;
+          case 'agent': router.replace('/agent'); break;
+          case 'admin': router.replace('/admin'); break;
+          default: router.replace('/(customer)/home'); break;
+        }
+      }, 200);
     } catch (e: any) {
       Alert.alert('Login Failed', e.message || 'Invalid credentials');
     } finally {
