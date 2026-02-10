@@ -1,0 +1,223 @@
+{
+  "identity": {
+    "name": "E1",
+    "persona": "The Anti-AI Designer",
+    "mission": "Create a hyper-local delivery experience that feels physical, urgent, and premium. Reject generic 'SaaS' flatness. Embrace texture (glass), depth (shadows), and motion.",
+    "core_principles": [
+      "Fusion over Imitation: Mix Swiss ease with Neo-Brutalist contrast.",
+      "Emotion First: Customer = Hunger/Desire; Agent = Speed/Focus.",
+      "Thumb-First: All primary actions within the bottom 30% of the screen.",
+      "No Loading Spinners: Use skeleton screens and shimmer effects."
+    ]
+  },
+  "tech_stack": {
+    "framework": "React Native (Expo)",
+    "styling": "StyleSheet.create() (No Tailwind)",
+    "navigation": "expo-router",
+    "icons": "@expo/vector-icons (Feather, Ionicons, MaterialCommunityIcons)",
+    "animations": "react-native-reanimated",
+    "blur": "expo-blur",
+    "gestures": "react-native-gesture-handler"
+  },
+  "theme": {
+    "colors": {
+      "light": {
+        "background": "#F8F9FA",
+        "surface": "#FFFFFF",
+        "text_primary": "#1A1A1A",
+        "text_secondary": "#6B7280",
+        "border": "#E5E7EB",
+        "primary": "#FF5500",
+        "primary_foreground": "#FFFFFF",
+        "secondary": "#FFD500",
+        "accent": "#1A051D",
+        "success": "#10B981",
+        "error": "#EF4444",
+        "glass_bg": "rgba(255, 255, 255, 0.85)"
+      },
+      "dark": {
+        "background": "#09090B",
+        "surface": "#18181B",
+        "text_primary": "#FFFFFF",
+        "text_secondary": "#A1A1A9",
+        "border": "#27272A",
+        "primary": "#FF5500",
+        "primary_foreground": "#FFFFFF",
+        "secondary": "#FFE600",
+        "accent": "#FFFFFF",
+        "success": "#34D399",
+        "error": "#F87171",
+        "glass_bg": "rgba(24, 24, 27, 0.6)"
+      },
+      "roles": {
+        "customer": { "primary": "#FF5500", "vibe": "Appetizing & energetic" },
+        "merchant": { "primary": "#007AFF", "vibe": "Clean & administrative" },
+        "agent": { "primary": "#CCFF00", "vibe": "High-vis & tactical (Dark Mode Default)" },
+        "admin": { "primary": "#6366F1", "vibe": "Data-dense & neutral" }
+      }
+    },
+    "typography": {
+      "font_family_heading": "System (Weight: 800/Black)",
+      "font_family_body": "System (Weight: 400/Regular)",
+      "sizes": {
+        "xs": 12,
+        "sm": 14,
+        "base": 16,
+        "lg": 18,
+        "xl": 24,
+        "2xl": 32,
+        "3xl": 40
+      },
+      "line_heights": {
+        "tight": 1.1,
+        "normal": 1.5,
+        "relaxed": 1.75
+      }
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 12,
+      "lg": 16,
+      "xl": 24,
+      "2xl": 32,
+      "3xl": 48
+    },
+    "radius": {
+      "sm": 8,
+      "md": 12,
+      "lg": 16,
+      "xl": 24,
+      "full": 9999
+    },
+    "shadows": {
+      "sm": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 1 },
+        "shadowOpacity": 0.05,
+        "shadowRadius": 2,
+        "elevation": 2
+      },
+      "md": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 4 },
+        "shadowOpacity": 0.1,
+        "shadowRadius": 8,
+        "elevation": 5
+      },
+      "float": {
+        "shadowColor": "#FF5500",
+        "shadowOffset": { "width": 0, "height": 8 },
+        "shadowOpacity": 0.25,
+        "shadowRadius": 16,
+        "elevation": 10
+      }
+    }
+  },
+  "ui_patterns": {
+    "GlassCard": {
+      "description": "A card with blurred background, used for floating elements over maps or images.",
+      "implementation": "Use <BlurView> as container with intensity={80} tint='light'. Add 1px solid border with rgba(255,255,255,0.4).",
+      "style": {
+        "overflow": "hidden",
+        "backgroundColor": "rgba(255,255,255,0.6)",
+        "borderColor": "rgba(255,255,255,0.3)",
+        "borderWidth": 1
+      }
+    },
+    "BentoGrid": {
+      "description": "Asymmetrical grid for categories. Not boring equal squares.",
+      "rules": "Mix 2x1 (wide) and 1x1 (square) tiles. Use Flexbox with 'flexWrap: wrap' and percentage widths (e.g., '48%' and '100%')."
+    },
+    "ActionSheet": {
+      "description": "Bottom sheet for secondary actions. Replaces native alerts.",
+      "style": {
+        "position": "absolute",
+        "bottom": 0,
+        "width": "100%",
+        "borderTopLeftRadius": 24,
+        "borderTopRightRadius": 24,
+        "backgroundColor": "surface",
+        "padding": 24,
+        "shadow": "float"
+      }
+    },
+    "PrimaryButton": {
+      "style": {
+        "backgroundColor": "primary",
+        "borderRadius": "full",
+        "paddingVertical": 16,
+        "alignItems": "center",
+        "shadow": "float"
+      },
+      "text_style": {
+        "color": "#FFFFFF",
+        "fontWeight": "700",
+        "fontSize": 16,
+        "letterSpacing": 0.5
+      }
+    },
+    "GhostButton": {
+        "style": {
+            "backgroundColor": "transparent",
+            "paddingVertical": 12
+        },
+        "text_style": {
+            "color": "text_secondary",
+            "fontSize": 14
+        }
+    }
+  },
+  "image_urls": {
+    "banners": [
+      {
+        "url": "https://images.unsplash.com/photo-1530554764233-e79e16c91d08",
+        "description": "Hero Banner: Man holding delicious burger (Dark contrast)",
+        "usage": "Home Screen Top Banner"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1634114042751-527be6421f41",
+        "description": "Secondary Banner: Fresh vegetables top view",
+        "usage": "Grocery Section Promo"
+      }
+    ],
+    "stores": [
+      {
+        "url": "https://images.unsplash.com/photo-1678213721629-265bba6c124b",
+        "description": "Modern Sushi Restaurant Interior",
+        "usage": "Restaurant Card Thumbnail"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1718283123704-493455f251aa",
+        "description": "Clean Minimalist Table",
+        "usage": "Cafe Card Thumbnail"
+      }
+    ],
+    "delivery": [
+      {
+        "url": "https://images.unsplash.com/photo-1767114648562-399d88d7362d",
+        "description": "Delivery Scooter on Street",
+        "usage": "Order Tracking Map Overlay / Agent Onboarding"
+      }
+    ],
+    "placeholders": {
+        "avatar": "https://i.pravatar.cc/150?img=12",
+        "map_bg": "https://api.mapbox.com/styles/v1/mapbox/light-v10/static/..."
+    }
+  },
+  "instructions_to_main_agent": [
+    "CRITICAL: Do NOT use HTML tags (div, span). Use <View>, <Text>, <Image>.",
+    "CRITICAL: Do NOT use className or Tailwind classes. Use 'style={styles.container}'.",
+    "CRITICAL: Use 'expo-router' for navigation. File-based routing in /app directory.",
+    "CRITICAL: Create a 'constants/Colors.ts' file first with the provided palette.",
+    "CRITICAL: Create a 'components/ui' folder for reusable atoms (Button, Card, Input).",
+    "CRITICAL: For shadows, use the provided shadow objects. Android needs 'elevation', iOS needs 'shadow*'.",
+    "CRITICAL: Add 'data-testid' prop to all TouchableOpacity/Pressable elements for testing.",
+    "ROLE SWITCHING: Implement a 'RoleSwitcher' component in the header that toggles the global theme/context.",
+    "LAYOUT: Ensure 'SafeAreaView' (from react-native-safe-area-context) wraps all screens to handle notches.",
+    "IMAGES: Use <Image> from 'expo-image' for better caching and performance.",
+    "ICONS: Use specific icon families: Feather for UI (menu, user), Ionicons for actions (cart, add).",
+    "Universal Guidelines: Avoid gradients on text. Avoid centered text for long descriptions (use left align).",
+    "Create a 'useTheme' hook to manage light/dark modes and role-based colors."
+  ]
+}
