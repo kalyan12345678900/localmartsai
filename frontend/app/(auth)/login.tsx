@@ -22,17 +22,8 @@ export default function LoginScreen() {
     }
     setLoading(true);
     try {
-      const userData = await login(email, password);
-      const role = userData?.active_role || 'customer';
-      // Use setTimeout to ensure navigation happens AFTER React re-render from state change
-      setTimeout(() => {
-        switch (role) {
-          case 'merchant': router.replace('/merchant-dashboard'); break;
-          case 'agent': router.replace('/agent-dashboard'); break;
-          case 'admin': router.replace('/admin-dashboard'); break;
-          default: router.replace('/home'); break;
-        }
-      }, 200);
+      await login(email, password);
+      // All roles go to /home which renders the appropriate dashboard based on role
     } catch (e: any) {
       Alert.alert('Login Failed', e.message || 'Invalid credentials');
     } finally {
