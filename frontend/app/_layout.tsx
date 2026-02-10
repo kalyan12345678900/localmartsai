@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { AuthProvider, useAuth } from '../context/AuthContext';
@@ -9,20 +9,31 @@ function AuthGate() {
   const { user, loading } = useAuth();
   const segments = useSegments();
   const router = useRouter();
+  const hasHandledInitialAuth = useRef(false);
 
   useEffect(() => {
     if (loading) return;
 
-    const seg0 = segments[0];
-    // On web, route groups don't appear in segments - check for actual screen names
-    const inAuthGroup = seg0 === '(auth)' || seg0 === 'login' || seg0 === 'register';
-    const isIndex = segments.length === 0 || seg0 === undefined || seg0 === '';
+    // Only handle initial auth redirect (app startup)
+    // Login/register screens handle post-auth navigation themselves
+    if (hasHandledInitialAuth.current) {
+      // After initial redirect, only handle logout (user becomes null)
+      if (!user) {
+        const seg0 = segments[0];
+        const inAuth = seg0 === '(auth)' || seg0 === 'login' || seg0 === 'register';
+        if (!inAuth) {
+          router.replace('/(auth)/login');
+        }
+      }
+      return;
+    }
+
+    hasHandledInitialAuth.current = true;
 
     if (!user) {
-      if (!inAuthGroup) {
-        router.replace('/(auth)/login');
-      }
-    } else if (inAuthGroup || isIndex) {
+      router.replace('/(auth)/login');
+    } else {
+      // Initial load with stored token - redirect to role dashboard
       switch (user.active_role) {
         case 'merchant': router.replace('/merchant'); break;
         case 'agent': router.replace('/agent'); break;
@@ -30,7 +41,7 @@ function AuthGate() {
         default: router.replace('/(customer)/home'); break;
       }
     }
-  }, [user, loading, segments]);
+  }, [user, loading]);
 
   if (loading) {
     return (
