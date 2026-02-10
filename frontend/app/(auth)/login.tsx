@@ -23,6 +23,8 @@ export default function LoginScreen() {
     setLoading(true);
     try {
       await login(email, password);
+      // Navigate to root, which will redirect based on role
+      router.replace('/');
     } catch (e: any) {
       Alert.alert('Login Failed', e.message || 'Invalid credentials');
     } finally {
