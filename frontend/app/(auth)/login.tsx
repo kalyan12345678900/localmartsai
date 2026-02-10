@@ -22,9 +22,14 @@ export default function LoginScreen() {
     }
     setLoading(true);
     try {
-      await login(email, password);
-      // Navigate to root, which will redirect based on role
-      router.replace('/');
+      const userData = await login(email, password);
+      const role = userData?.active_role || 'customer';
+      switch (role) {
+        case 'merchant': router.replace('/(merchant)'); break;
+        case 'agent': router.replace('/(agent)'); break;
+        case 'admin': router.replace('/(admin)'); break;
+        default: router.replace('/(customer)/home'); break;
+      }
     } catch (e: any) {
       Alert.alert('Login Failed', e.message || 'Invalid credentials');
     } finally {

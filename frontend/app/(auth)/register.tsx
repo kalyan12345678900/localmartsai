@@ -33,14 +33,20 @@ export default function RegisterScreen() {
     }
     setLoading(true);
     try {
-      await register({
+      const userData = await register({
         name, email, password, phone,
         roles: [role, 'customer'],
         license_no: licenseNo, vehicle_no: vehicleNo,
         shop_name: shopName, shop_address: shopAddress,
         working_hours: workingHours, join_whatsapp: joinWhatsapp,
       });
-      router.replace('/');
+      const activeRole = userData?.active_role || 'customer';
+      switch (activeRole) {
+        case 'merchant': router.replace('/(merchant)'); break;
+        case 'agent': router.replace('/(agent)'); break;
+        case 'admin': router.replace('/(admin)'); break;
+        default: router.replace('/(customer)/home'); break;
+      }
     } catch (e: any) {
       Alert.alert('Registration Failed', e.message || 'Please try again');
     } finally {
