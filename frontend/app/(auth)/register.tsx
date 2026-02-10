@@ -40,6 +40,7 @@ export default function RegisterScreen() {
         shop_name: shopName, shop_address: shopAddress,
         working_hours: workingHours, join_whatsapp: joinWhatsapp,
       });
+      router.replace('/');
     } catch (e: any) {
       Alert.alert('Registration Failed', e.message || 'Please try again');
     } finally {
