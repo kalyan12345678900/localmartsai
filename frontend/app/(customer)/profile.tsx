@@ -16,9 +16,9 @@ export default function ProfileScreen() {
     try {
       await switchRole(role);
       switch (role) {
-        case 'merchant': router.replace('/(merchant)'); break;
-        case 'agent': router.replace('/(agent)'); break;
-        case 'admin': router.replace('/(admin)'); break;
+        case 'merchant': router.replace('/merchant'); break;
+        case 'agent': router.replace('/agent'); break;
+        case 'admin': router.replace('/admin'); break;
         default: router.replace('/(customer)/home'); break;
       }
     } catch (e: any) {

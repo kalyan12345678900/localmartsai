@@ -18,9 +18,9 @@ export default function AgentProfile() {
       await switchRole(role);
       switch (role) {
         case 'customer': router.replace('/(customer)/home'); break;
-        case 'merchant': router.replace('/(merchant)'); break;
-        case 'admin': router.replace('/(admin)'); break;
-        default: router.replace('/(agent)'); break;
+        case 'merchant': router.replace('/merchant'); break;
+        case 'admin': router.replace('/admin'); break;
+        default: router.replace('/agent'); break;
       }
     } catch (e: any) { Alert.alert('Error', e.message); }
     finally { setSwitching(false); }
