@@ -26,13 +26,8 @@ function AuthGate() {
     if (!user) {
       router.replace('/(auth)/login');
     } else {
-      // Route to appropriate tab based on role
-      switch (user.active_role) {
-        case 'merchant': router.replace('/merchant-dashboard'); break;
-        case 'agent': router.replace('/agent-dashboard'); break;
-        case 'admin': router.replace('/admin-dashboard'); break;
-        default: router.replace('/home'); break;
-      }
+      // All roles go to /home which renders appropriate dashboard
+      router.replace('/home');
     }
   }, [user, loading]);
 
