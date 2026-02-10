@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { View, ActivityIndicator, StyleSheet, Text } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '../context/AuthContext';
@@ -7,9 +7,12 @@ import { Colors } from '../constants/Colors';
 export default function Index() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const hasRedirected = useRef(false);
 
   useEffect(() => {
-    if (loading) return;
+    if (loading || hasRedirected.current) return;
+    hasRedirected.current = true;
+
     const timer = setTimeout(() => {
       if (!user) {
         router.replace('/(auth)/login');
@@ -21,9 +24,9 @@ export default function Index() {
           default: router.replace('/(customer)/home'); break;
         }
       }
-    }, 300);
+    }, 100);
     return () => clearTimeout(timer);
-  }, [user, loading]);
+  }, [loading]);
 
   return (
     <View style={styles.container}>
