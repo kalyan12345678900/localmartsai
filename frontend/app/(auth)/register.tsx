@@ -42,9 +42,9 @@ export default function RegisterScreen() {
       });
       const activeRole = userData?.active_role || 'customer';
       switch (activeRole) {
-        case 'merchant': router.replace('/(merchant)'); break;
-        case 'agent': router.replace('/(agent)'); break;
-        case 'admin': router.replace('/(admin)'); break;
+        case 'merchant': router.replace('/merchant'); break;
+        case 'agent': router.replace('/agent'); break;
+        case 'admin': router.replace('/admin'); break;
         default: router.replace('/(customer)/home'); break;
       }
     } catch (e: any) {

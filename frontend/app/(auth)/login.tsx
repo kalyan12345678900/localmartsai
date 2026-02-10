@@ -25,9 +25,9 @@ export default function LoginScreen() {
       const userData = await login(email, password);
       const role = userData?.active_role || 'customer';
       switch (role) {
-        case 'merchant': router.replace('/(merchant)'); break;
-        case 'agent': router.replace('/(agent)'); break;
-        case 'admin': router.replace('/(admin)'); break;
+        case 'merchant': router.replace('/merchant'); break;
+        case 'agent': router.replace('/agent'); break;
+        case 'admin': router.replace('/admin'); break;
         default: router.replace('/(customer)/home'); break;
       }
     } catch (e: any) {
