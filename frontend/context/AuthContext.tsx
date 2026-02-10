@@ -22,8 +22,8 @@ type AuthContextType = {
   user: User | null;
   token: string | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (data: any) => Promise<void>;
+  login: (email: string, password: string) => Promise<any>;
+  register: (data: any) => Promise<any>;
   logout: () => Promise<void>;
   switchRole: (role: string) => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -33,8 +33,8 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   token: null,
   loading: true,
-  login: async () => {},
-  register: async () => {},
+  login: async () => ({} as any),
+  register: async () => ({} as any),
   logout: async () => {},
   switchRole: async () => {},
   refreshUser: async () => {},
@@ -69,6 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await AsyncStorage.setItem('auth_token', result.token);
     setToken(result.token);
     setUser(result.user);
+    return result.user;
   };
 
   const register = async (data: any) => {
@@ -76,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await AsyncStorage.setItem('auth_token', result.token);
     setToken(result.token);
     setUser(result.user);
+    return result.user;
   };
 
   const logout = async () => {
