@@ -22,14 +22,8 @@ export default function LoginScreen() {
     }
     setLoading(true);
     try {
-      const userData = await login(email, password);
-      const role = userData?.active_role || 'customer';
-      switch (role) {
-        case 'merchant': router.replace('/merchant'); break;
-        case 'agent': router.replace('/agent'); break;
-        case 'admin': router.replace('/admin'); break;
-        default: router.replace('/(customer)/home'); break;
-      }
+      await login(email, password);
+      // AuthGate in root layout handles navigation based on role
     } catch (e: any) {
       Alert.alert('Login Failed', e.message || 'Invalid credentials');
     } finally {

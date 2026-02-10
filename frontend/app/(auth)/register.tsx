@@ -33,20 +33,14 @@ export default function RegisterScreen() {
     }
     setLoading(true);
     try {
-      const userData = await register({
+      await register({
         name, email, password, phone,
         roles: [role, 'customer'],
         license_no: licenseNo, vehicle_no: vehicleNo,
         shop_name: shopName, shop_address: shopAddress,
         working_hours: workingHours, join_whatsapp: joinWhatsapp,
       });
-      const activeRole = userData?.active_role || 'customer';
-      switch (activeRole) {
-        case 'merchant': router.replace('/merchant'); break;
-        case 'agent': router.replace('/agent'); break;
-        case 'admin': router.replace('/admin'); break;
-        default: router.replace('/(customer)/home'); break;
-      }
+      // AuthGate in root layout handles navigation based on role
     } catch (e: any) {
       Alert.alert('Registration Failed', e.message || 'Please try again');
     } finally {
