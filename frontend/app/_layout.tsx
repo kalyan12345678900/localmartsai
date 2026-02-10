@@ -13,20 +13,16 @@ function AuthGate() {
   useEffect(() => {
     if (loading) return;
 
-    const inAuthGroup = segments[0] === '(auth)';
-    const inCustomer = segments[0] === '(customer)';
-    const inMerchant = segments[0] === 'merchant';
-    const inAgent = segments[0] === 'agent';
-    const inAdmin = segments[0] === 'admin';
-    const isIndex = segments.length === 0;
+    const seg0 = segments[0];
+    // On web, route groups don't appear in segments - check for actual screen names
+    const inAuthGroup = seg0 === '(auth)' || seg0 === 'login' || seg0 === 'register';
+    const isIndex = segments.length === 0 || seg0 === undefined || seg0 === '';
 
     if (!user) {
-      // Not authenticated - go to login
       if (!inAuthGroup) {
         router.replace('/(auth)/login');
       }
     } else if (inAuthGroup || isIndex) {
-      // Authenticated but on auth/index - redirect to role dashboard
       switch (user.active_role) {
         case 'merchant': router.replace('/merchant'); break;
         case 'agent': router.replace('/agent'); break;
