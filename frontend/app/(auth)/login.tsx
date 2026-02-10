@@ -23,10 +23,14 @@ export default function LoginScreen() {
     setLoading(true);
     try {
       await login(email, password);
-      // All roles go to /home which renders the appropriate dashboard based on role
+      // Force navigation - use window.location on web for reliable cross-stack navigation
+      if (Platform.OS === 'web' && typeof window !== 'undefined') {
+        window.location.href = '/home';
+      } else {
+        router.replace('/home');
+      }
     } catch (e: any) {
       Alert.alert('Login Failed', e.message || 'Invalid credentials');
-    } finally {
       setLoading(false);
     }
   };
