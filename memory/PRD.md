@@ -102,7 +102,11 @@ QuickDrop is a comprehensive hyper-local delivery platform serving four user rol
 - GET /api/settlements, POST /api/settlements/request
 - GET /api/banners, GET /api/search, GET /api/cms
 
-## Mocked Features
+## Architecture
+- **Routing**: Single `(customer)` tab group with role-aware home screen
+- **Auth Flow**: JWT tokens stored in AsyncStorage; `window.location.href` for web navigation after login
+- **Home Screen**: `/home` renders Customer Home, Merchant Dashboard, Agent Dashboard, or Admin Dashboard based on `active_role`
+- **Tab Bar**: Dynamically shows/hides tabs based on user role using `href: null` pattern
 - **Distance Calculation**: Defaults to 2km (no Google Maps integration)
 - **Push Notifications**: Not implemented (mock only)
 - **Live Tracking**: Status-based tracking (no real-time GPS)
